@@ -1,0 +1,112 @@
+public void addProduct(ProductInfoDetails product) {
+		
+			try {
+
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				String dburl = "jdbc:mysql://localhost:3306/stores_management_db";
+				conn = DriverManager.getConnection(dburl, "root", "hr");
+				String query = "insert into ProductInfoDetails values(?,?,?,?,?)";
+
+				ps = conn.prepareStatement(query);
+				ps.setInt(1,product.getProductId());
+				ps.setString(2, product.getProductName());
+				ps.setDouble(3, product.getPrice());
+				ps.setInt(4,product.getWarranty());
+				ps.setInt(5,product.getStocks());
+			
+				int count = ps.executeUpdate();
+				log.info("no of rows affected: " + count);
+
+			} catch (Exception e) {
+				log.info("Exception in login records");
+			} finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+
+				} catch (SQLException e) {
+					log.info("Exception in login records 1");
+				}
+			}
+	}
+
+	public void modifyProduct(ProductInfoDetails product) {
+		
+			try {
+				
+				Class.forName("com.mysql.jdbc.Driver").newInstance();
+				String dburl = "jdbc:mysql://localhost:3306/stores_management_db";
+				conn = DriverManager.getConnection(dburl, "root", "tiger");
+
+				String query = "update userDetailsInfo set ProductName=? WHERE getPrice=?";
+	            ps = conn.prepareStatement(query);
+				ps.setString(1,product.getProductName());
+				ps.setDouble(2, product.getPrice());
+
+
+				int count = ps.executeUpdate();
+				log.info("no of rows affected: " + count);
+				
+
+			} catch (Exception e) {
+				log.info("Exception arises");
+			} finally {
+				try {
+					if (conn != null) {
+						conn.close();
+					}
+					if (ps != null) {
+						ps.close();
+					}
+
+				} catch (SQLException e) {
+					log.info("Exception came");
+				}
+			}
+
+		}
+
+		
+
+	public void removeProduct(ProductInfoDetails product) {
+		
+				try {
+
+					Class.forName("com.mysql.jdbc.Driver").newInstance();
+					String dburl = "jdbc:mysql://localhost:3306/stores_management_db";
+					conn = DriverManager.getConnection(dburl, "root", "tiger");
+					String query = "delete from ProductInfoDetails where ProductId=?";
+
+					ps = conn.prepareStatement(query);
+					ps.setInt(1,product.getProductId());
+
+				
+
+
+					int count = ps.executeUpdate();
+					log.info("no of rows affected: " + count);
+
+				} catch (Exception e) {
+					log.info("Exception 1");
+				} finally {
+					try {
+						if (conn != null) {
+							conn.close();
+						}
+						if (ps != null) {
+							ps.close();
+						}
+
+					} catch (SQLException e) {
+						log.info("Hello Exception");
+					}
+				}
+
+
+
+			}
+
